@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		1. Intro.txt = 1. Intro.txt
 		Step1.txt = Step1.txt
 		Step2.txt = Step2.txt
+		Step3.txt = Step3.txt
 	EndProjectSection
 EndProject
 Global
