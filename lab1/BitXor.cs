@@ -3,7 +3,6 @@ namespace lab1
 {
     public static class BitXor
     {
-       
         public static void BruteForce(byte[] encoded, string logPath)
         {
             for (int i = 0; i < 255; i++)
