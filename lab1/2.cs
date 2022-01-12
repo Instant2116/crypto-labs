@@ -2,5 +2,5 @@
 
 namespace lab1
 {
-   public static class
+
 }
