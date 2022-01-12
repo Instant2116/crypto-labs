@@ -2,5 +2,5 @@
 
 namespace lab1
 {
-
+    //ver
 }
