@@ -7,11 +7,8 @@ namespace lab1
         {
             for (int i = 0; i < 255; i++)
             {
-                byte[] temp = new byte[encoded.Length - 1];
-                for (int j = 0; j < encoded.Length - 1; j++)
-                {
-                    temp[j] = (byte)(encoded[j] ^ i);
-                }
+                byte[] temp = Xor(encoded, (byte)i);
+
                 string result = System.Text.Encoding.UTF8.GetString(temp);
                 System.IO.File.AppendAllText(logPath, "i:\t" + i + "\n" + result + "\n");
                 Console.WriteLine("i:\t" + i);
@@ -19,10 +16,14 @@ namespace lab1
                 Console.WriteLine();
             }
         }
-
-
+        public static byte[] Xor(byte[] encoded, byte key)
+        {
+            byte[] result = new byte[encoded.Length];
+            for (int j = 0; j < encoded.Length; j++)
+            {
+                result[j] = (byte)(encoded[j] ^ key);
+            }
+            return result;
+        }
     }
-    
-    
-    
 }

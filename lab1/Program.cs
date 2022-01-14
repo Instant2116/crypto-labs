@@ -13,6 +13,9 @@ namespace lab1
 
             string line2 = @"G0IFOFVMLRAPI1QJbEQDbFEYOFEPJxAfI10JbEMFIUAAKRAfOVIfOFkYOUQFI15ML1kcJFUeYhA4IxAeKVQZL1VMOFgJbFMDIUAAKUgFOElMI1ZMOFgFPxADIlVMO1VMO1kAIBAZP1VMI14ANRAZPEAJPlMNP1VMIFUYOFUePxxMP19MOFgJbFsJNUMcLVMJbFkfbF8CIElMfgZNbGQDbFcJOBAYJFkfbF8CKRAeJVcEOBANOUQDIVEYJVMNIFwVbEkDORAbJVwAbEAeI1INLlwVbF4JKVRMOF9MOUMJbEMDIVVMP18eOBADKhALKV4JOFkPbFEAK18eJUQEIRBEO1gFL1hMO18eJ1UIbEQEKRAOKUMYbFwNP0RMNVUNPhlAbEMFIUUALUQJKBANIl4JLVwFIldMI0JMK0INKFkJIkRMKFUfL1UCOB5MH1UeJV8ZP1wVYBAbPlkYKRAFOBAeJVcEOBACI0dAbEkDORAbJVwAbF4JKVRMJURMOF9MKFUPJUAEKUJMOFgJbF4JNERMI14JbFEfbEcJIFxCbHIJLUJMJV5MIVkCKBxMOFgJPlVLPxACIxAfPFEPKUNCbDoEOEQcPwpDY1QDL0NCK18DK1wJYlMDIR8II1MZIVUCOB8IYwEkFQcoIB1ZJUQ1CAMvE1cHOVUuOkYuCkA4eHMJL3c8JWJffHIfDWIAGEA9Y1UIJURTOUMccUMELUIFIlc=";
             string line3 = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(line2));
+            string pathIndexofConcidence = @"D:\_vs2019\repos\crypto-labs\lab1\results\IndexofConcidence.txt";
+            
+            GetKeyLen(line3, true, pathIndexofConcidence);
 
         }
 
@@ -33,11 +36,31 @@ namespace lab1
             return HexAsBytes;
         }
         //index of coincidence
-        public static SortedList<int,int> GetKeyLen(string line)
+        public static SortedList<int,double> GetKeyLen(string line, bool IsOnLog, string logPath = "KeyLenLog.txt"  ) //return shift and share of matches
         {
-            SortedList<int, int> results = new SortedList<int, int>();
-
-
+            SortedList<int, double> results = new SortedList<int, double>();
+            for (int i = 1; i < line.Length - 1; i++)
+            {
+                string shifted = line.Substring(i) + line.Substring(0, i);
+                int freq = 0;
+                for (int j = 0; j < line.Length - 1; j++)
+                {
+                    if(line[j] == shifted[j])
+                    {
+                        freq++;
+                    }
+                }
+                double share = (double)freq / line.Length;
+                results.Add(i, share);
+                if(IsOnLog)
+                {
+                    System.IO.File.AppendAllText(logPath, "i:\t" + i + "\n" + share + "\n");
+                    Console.WriteLine("i:\t" + i);
+                    Console.WriteLine(share);
+                    Console.WriteLine();
+                }   
+            }
+            return results;
         }
     }
 }
