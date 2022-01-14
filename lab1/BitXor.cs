@@ -5,6 +5,7 @@ namespace lab1
     {
         public static void BruteForce(byte[] encoded, string logPath)
         {
+            System.IO.File.Create(logPath).Close();
             for (int i = 0; i < 255; i++)
             {
                 byte[] temp = Xor(encoded, (byte)i);
