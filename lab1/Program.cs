@@ -11,8 +11,8 @@ namespace lab1
             //string pathBruteForce = @"D:\_vs2019\repos\crypto-labs\lab1\results\BruteForced.txt";
             //BitXor.BruteForce(HexStringToByteArray(line1), pathBruteForce);
 
-            //string line2 = @"G0IFOFVMLRAPI1QJbEQDbFEYOFEPJxAfI10JbEMFIUAAKRAfOVIfOFkYOUQFI15ML1kcJFUeYhA4IxAeKVQZL1VMOFgJbFMDIUAAKUgFOElMI1ZMOFgFPxADIlVMO1VMO1kAIBAZP1VMI14ANRAZPEAJPlMNP1VMIFUYOFUePxxMP19MOFgJbFsJNUMcLVMJbFkfbF8CIElMfgZNbGQDbFcJOBAYJFkfbF8CKRAeJVcEOBANOUQDIVEYJVMNIFwVbEkDORAbJVwAbEAeI1INLlwVbF4JKVRMOF9MOUMJbEMDIVVMP18eOBADKhALKV4JOFkPbFEAK18eJUQEIRBEO1gFL1hMO18eJ1UIbEQEKRAOKUMYbFwNP0RMNVUNPhlAbEMFIUUALUQJKBANIl4JLVwFIldMI0JMK0INKFkJIkRMKFUfL1UCOB5MH1UeJV8ZP1wVYBAbPlkYKRAFOBAeJVcEOBACI0dAbEkDORAbJVwAbF4JKVRMJURMOF9MKFUPJUAEKUJMOFgJbF4JNERMI14JbFEfbEcJIFxCbHIJLUJMJV5MIVkCKBxMOFgJPlVLPxACIxAfPFEPKUNCbDoEOEQcPwpDY1QDL0NCK18DK1wJYlMDIR8II1MZIVUCOB8IYwEkFQcoIB1ZJUQ1CAMvE1cHOVUuOkYuCkA4eHMJL3c8JWJffHIfDWIAGEA9Y1UIJURTOUMccUMELUIFIlc=";
-            //string line3 = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(line2));
+            string line2 = @"G0IFOFVMLRAPI1QJbEQDbFEYOFEPJxAfI10JbEMFIUAAKRAfOVIfOFkYOUQFI15ML1kcJFUeYhA4IxAeKVQZL1VMOFgJbFMDIUAAKUgFOElMI1ZMOFgFPxADIlVMO1VMO1kAIBAZP1VMI14ANRAZPEAJPlMNP1VMIFUYOFUePxxMP19MOFgJbFsJNUMcLVMJbFkfbF8CIElMfgZNbGQDbFcJOBAYJFkfbF8CKRAeJVcEOBANOUQDIVEYJVMNIFwVbEkDORAbJVwAbEAeI1INLlwVbF4JKVRMOF9MOUMJbEMDIVVMP18eOBADKhALKV4JOFkPbFEAK18eJUQEIRBEO1gFL1hMO18eJ1UIbEQEKRAOKUMYbFwNP0RMNVUNPhlAbEMFIUUALUQJKBANIl4JLVwFIldMI0JMK0INKFkJIkRMKFUfL1UCOB5MH1UeJV8ZP1wVYBAbPlkYKRAFOBAeJVcEOBACI0dAbEkDORAbJVwAbF4JKVRMJURMOF9MKFUPJUAEKUJMOFgJbF4JNERMI14JbFEfbEcJIFxCbHIJLUJMJV5MIVkCKBxMOFgJPlVLPxACIxAfPFEPKUNCbDoEOEQcPwpDY1QDL0NCK18DK1wJYlMDIR8II1MZIVUCOB8IYwEkFQcoIB1ZJUQ1CAMvE1cHOVUuOkYuCkA4eHMJL3c8JWJffHIfDWIAGEA9Y1UIJURTOUMccUMELUIFIlc=";
+            string line3 = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(line2));
             ////string pathIndexofConcidence = @"D:\_vs2019\repos\crypto-labs\lab1\results\IndexofConcidence.txt";
             //string pathTopIndexofConcidence = @"D:\_vs2019\repos\crypto-labs\lab1\results\TopIndexofConcidence.txt";
 
@@ -24,7 +24,38 @@ namespace lab1
             //    Console.WriteLine("Shift:\t" + el.Key + "\tIndex:\t" + el.Value);
             //}
 
+            int keyLen = 3;
+            List<List<char>> groups = new List<List<char>>();
+            for (int i = 0; i < keyLen; i++)
+                groups.Add(new List<char>());
 
+            for (int i = 0; i < line3.Length; i += keyLen)
+            {
+                for (int j = 0; j < keyLen; j++)
+                {
+                    if (i + j < line3.Length)
+                        groups[j].Add(line3[i + j]);
+                }
+            }
+            int keyCombo = 255 ^ keyLen;
+
+            for (int i = 0; i < keyCombo; i++)
+            {
+                string decoded = "";
+                byte[] key = KeyGen(i, keyLen);
+                for (int j = 0; j < line3.Length; j ++)
+                {
+                    for (int n = 0; n < keyLen; n++)
+                    {
+                        if (j < groups[n].Count)
+                            decoded += Convert.ToString(Convert.ToByte(groups[n][j]) ^ key[n]);
+                    }
+                }
+                
+                if (decoded.Contains("the"))
+                    Console.WriteLine(decoded);
+                    
+            }
         }
 
         public static byte[] HexStringToByteArray(string hexString)
@@ -43,8 +74,13 @@ namespace lab1
 
             return HexAsBytes;
         }
-        //index of coincidence
 
+        public static byte[] KeyGen(int seed, int keyLen)
+        {
+            byte[] key = new byte[keyLen];
+            key = BitConverter.GetBytes(seed);
+            return key;
+        }
     }
 }
 
