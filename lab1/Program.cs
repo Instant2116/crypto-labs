@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 namespace lab1
@@ -23,39 +24,9 @@ namespace lab1
             //    System.IO.File.AppendAllText(pathTopIndexofConcidence, "Shift:\t" + el.Key + "\tIndex:\t" + el.Value+System.Environment.NewLine);
             //    Console.WriteLine("Shift:\t" + el.Key + "\tIndex:\t" + el.Value);
             //}
-
-            int keyLen = 3;
-            List<List<char>> groups = new List<List<char>>();
-            for (int i = 0; i < keyLen; i++)
-                groups.Add(new List<char>());
-
-            for (int i = 0; i < line3.Length; i += keyLen)
-            {
-                for (int j = 0; j < keyLen; j++)
-                {
-                    if (i + j < line3.Length)
-                        groups[j].Add(line3[i + j]);
-                }
-            }
-            int keyCombo = 255 ^ keyLen;
-
-            for (int i = 0; i < keyCombo; i++)
-            {
-                string decoded = "";
-                byte[] key = KeyGen(i, keyLen);
-                for (int j = 0; j < line3.Length; j ++)
-                {
-                    for (int n = 0; n < keyLen; n++)
-                    {
-                        if (j < groups[n].Count)
-                            decoded += Convert.ToString(Convert.ToByte(groups[n][j]) ^ key[n]);
-                    }
-                }
-                
-                if (decoded.Contains("the"))
-                    Console.WriteLine(decoded);
-                    
-            }
+            string[] heurs = { "code", "cipher" };
+            string decoded = MultiXor.BruteForceWithHeuristics(line3, heurs, 3);
+            Console.WriteLine(decoded);
         }
 
         public static byte[] HexStringToByteArray(string hexString)
@@ -75,12 +46,6 @@ namespace lab1
             return HexAsBytes;
         }
 
-        public static byte[] KeyGen(int seed, int keyLen)
-        {
-            byte[] key = new byte[keyLen];
-            key = BitConverter.GetBytes(seed);
-            return key;
-        }
     }
 }
 
