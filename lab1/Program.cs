@@ -37,6 +37,8 @@ namespace lab1
             //genAlgorithm.getTrigram();
             //string answer = genAlgorithm.GeneticDecrypt();
             //Console.WriteLine(answer);
+
+
         }
 
         public static byte[] HexStringToByteArray(string hexString)
