@@ -10,7 +10,7 @@ namespace lab3
 
         private static readonly HttpClient client = new HttpClient();
 
-        private const string casinoURL = "";
+        private const string casinoURL = "http://95.217.177.249/casino/";
         private Account player = new Account();
         public async Task CreateAcc(int id)
         {

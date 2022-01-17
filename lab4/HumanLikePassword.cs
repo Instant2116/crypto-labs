@@ -8,7 +8,7 @@ namespace Lab4
     {
         private List<string> passwordsList = new List<string>();
         private Random random = new Random();
-        ReadPassStatisitic RPSmany = new ReadPassStatisitic("D:\\security\\Security_Lab_1\\Lab4\\Document\\10-million-password-list-top-100000.txt");
+        ReadPassStatisitic RPSmany = new ReadPassStatisitic(@"D:\_vs2019\repos\crypto-labs\lab4\Doc\10-million-password-list-top-100000.txt");
 
 
 
