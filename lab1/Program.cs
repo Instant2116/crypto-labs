@@ -1,7 +1,10 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
 namespace lab1
 {
     class Program
@@ -24,9 +27,16 @@ namespace lab1
             //    System.IO.File.AppendAllText(pathTopIndexofConcidence, "Shift:\t" + el.Key + "\tIndex:\t" + el.Value+System.Environment.NewLine);
             //    Console.WriteLine("Shift:\t" + el.Key + "\tIndex:\t" + el.Value);
             //}
-            string[] heurs = { "code", "cipher" };
-            string decoded = MultiXor.BruteForceWithHeuristics(line3, heurs, 3);
-            Console.WriteLine(decoded);
+            //string[] heurs = { "code", "cipher" };
+            //string decoded = MultiXor.BruteForceWithHeuristics(line3, heurs, 3);
+            //Console.WriteLine(decoded);
+
+
+            //string line4 = "EFFPQLEKVTVPCPYFLMVHQLUEWCNVWFYGHYTCETHQEKLPVMSAKSPVPAPVYWMVHQLUSPQLYWLASLFVWPQLMVHQLUPLRPSQLULQESPBLWPCSVRVWFLHLWFLWPUEWFYOTCMQYSLWOYWYETHQEKLPVMSAKSPVPAPVYWHEPPLUWSGYULEMQTLPPLUGUYOLWDTVSQETHQEKLPVPVSMTLEUPQEPCYAMEWWYTYWDLUULTCYWPQLSEOLSVOHTLUYAPVWLYGDALSSVWDPQLNLCKCLRQEASPVILSLEUMQBQVMQCYAHUYKEKTCASLFPYFLMVHQLUPQLHULIVYASHEUEDUEHQBVTTPQLVWFLRYGMYVWMVFLWMLSPVTTBYUNESESADDLSPVYWCYAMEWPUCPYFVIVFLPQLOLSSEDLVWHEUPSKCPQLWAOKLUYGMQEUEMPLUSVWENLCEWFEHHTCGULXALWMCEWETCSVSPYLEMQYGPQLOMEWCYAGVWFEBECPYASLQVDQLUYUFLUGULXALWMCSPEPVSPVMSBVPQPQVSPCHLYGMVHQLUPQLWLRPOEDVMETBYUFBVTTPENLPYPQLWLRPTEKLWZYCKVPTCSTESQPBYMEHVPETCMEHVPETZMEHVPETKTMEHVPETCMEHVPETT";
+            //Genetic genAlgorithm = new Genetic(line4);
+            //genAlgorithm.getTrigram();
+            //string answer = genAlgorithm.GeneticDecrypt();
+            //Console.WriteLine(answer);
         }
 
         public static byte[] HexStringToByteArray(string hexString)
